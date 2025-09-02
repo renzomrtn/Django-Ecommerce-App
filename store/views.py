@@ -116,10 +116,15 @@ def category(request, foo):
 
 		
 
-def product(request,pk):
-	product = Product.objects.get(id=pk)
-	return render(request, 'product.html', {'product':product})
-
+def product(request, pk):
+    product = Product.objects.get(id=pk)
+    # Get other products in the same category, excluding the current product
+    similar_products = Product.objects.filter(category=product.category).exclude(id=pk)[:8]  # Limit to 8 products
+    
+    return render(request, 'product.html', {
+        'product': product,
+        'similar_products': similar_products,
+    })
 
 
 def home(request):

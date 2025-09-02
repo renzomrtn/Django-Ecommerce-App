@@ -1,16 +1,79 @@
 {% extends 'base.html' %}
 {% block content %}
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Shop your next device</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">With Shazada</p>
+        <!-- Hero Section -->
+        <section class="hero-section bg-primary text-white py-5">
+            <div class="container">
+                <div class="row align-items-center min-vh-75">
+                    <div class="col-lg-6">
+                        <h1 class="display-3 fw-bold mb-4">Discover Your Next Device</h1>
+                        <p class="lead mb-4">Shop the latest smartphones, tablets, and tech accessories with unbeatable prices and premium quality. Find your perfect match today!</p>
+                        <div class="d-flex gap-3 flex-wrap">
+                            <a href="#products" class="btn btn-light btn-lg px-4">Shop Now</a>
+                            <a href="#featured" class="btn btn-outline-light btn-lg px-4">View Deals</a>
+                        </div>
+                        <div class="mt-4">
+                            <small class="text-light opacity-75">
+                                <i class="bi bi-truck"></i> Free shipping on orders over $50 &nbsp;&nbsp;
+                                <i class="bi bi-shield-check"></i> 1-year warranty included
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mt-5 mt-lg-0">
+                        <div class="position-relative">
+                            <img src="../static/assets/devices.png" 
+                                 class="img-fluid" 
+                                 alt="Latest Devices">
+                        </div>
+                    </div>
                 </div>
             </div>
-        </header>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card border-0 bg-transparent h-100">
+                            <div class="card-body">
+                                <i class="bi bi-lightning-charge fs-1 text-primary mb-3"></i>
+                                <h5 class="fw-bold">Fast Delivery</h5>
+                                <p class="text-muted">Same-day delivery available in select areas</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card border-0 bg-transparent h-100">
+                            <div class="card-body">
+                                <i class="bi bi-shield-check fs-1 text-success mb-3"></i>
+                                <h5 class="fw-bold">Quality Guarantee</h5>
+                                <p class="text-muted">All products come with manufacturer warranty</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card border-0 bg-transparent h-100">
+                            <div class="card-body">
+                                <i class="bi bi-headset fs-1 text-info mb-3"></i>
+                                <h5 class="fw-bold">24/7 Support</h5>
+                                <p class="text-muted">Expert customer service whenever you need</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card border-0 bg-transparent h-100">
+                            <div class="card-body">
+                                <i class="bi bi-arrow-return-left fs-1 text-warning mb-3"></i>
+                                <h5 class="fw-bold">Easy Returns</h5>
+                                <p class="text-muted">30-day hassle-free return policy</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         
-        <!-- Section-->
+        <!-- Products Section -->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -19,9 +82,9 @@
                     {% if product.is_sale %}
                     <div class="col mb-5">
                         <div class="card h-100 product-card">
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <!-- Product image-->
-                            <img class="card-img-top" src="{{ product.image.url }}" alt="..." />
+                            <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}" />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -33,15 +96,23 @@
                                         <div class="bi-star-fill"></div>
                                     </div>
                                     <!-- Product price-->
-                                    <strike>
-                                    ${{ product.price }}
-                                    </strike>&nbsp;
-                                    ${{ product.sale_price }}
+                                    <div class="price-section">
+                                        <span class="text-muted text-decoration-line-through me-2">
+                                            ${{ product.price }}
+                                        </span>
+                                        <span class="fw-bold text-danger">
+                                            ${{ product.sale_price }}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id %}">View Product</a></div>
+                                <div class="text-center">
+                                    <a class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id %}">
+                                        View Product
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -49,19 +120,23 @@
                     <div class="col mb-5">
                         <div class="card h-100 product-card">
                             <!-- Product image-->
-                            <img class="card-img-top" src="{{ product.image.url }}" alt="..." />
+                            <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}" />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">{{ product.name }}</h5>
                                     <!-- Product price-->
-                                    ${{ product.price }}
+                                    <div class="fw-bold">${{ product.price }}</div>
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id %}">View Product</a></div>
+                                <div class="text-center">
+                                    <a class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id %}">
+                                        View Product
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -72,21 +147,79 @@
         </section>
 
 <style>
+/* Hero Section Styles */
+.hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+}
+
+.min-vh-75 {
+    min-height: 75vh;
+}
+
+.bg-gradient {
+    background: linear-gradient(45deg, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.1) 100%);
+}
+
+/* Product Card Animations */
 .product-card {
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .product-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 
 .card-img-top {
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+    height: 200px;
+    object-fit: cover;
 }
 
 .product-card:hover .card-img-top {
-    transform: scale(1.02);
+    transform: scale(1.05);
+}
+
+/* Feature Cards Hover Effect */
+.card.bg-transparent:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Price Section */
+.price-section {
+    font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 60vh;
+    }
+    
+    .display-3 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Button Hover Effects */
+.btn {
+    transition: all 0.3s ease-in-out;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Badge improvements */
+.badge {
+    font-size: 0.75rem;
+    padding: 0.5em 0.75em;
 }
 </style>
         
