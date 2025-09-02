@@ -1,17 +1,15 @@
 {% extends 'base.html' %}
-
-
 {% block content %}
-
         <!-- Header-->
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Shop in style</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+                    <h1 class="display-4 fw-bolder">Shop your next device</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">With Shazada</p>
                 </div>
             </div>
         </header>
+        
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
@@ -20,11 +18,8 @@
                     {% for product in products %}
                     {% if product.is_sale %}
                     <div class="col mb-5">
-                        <div class="card h-100">
-
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale
-                            </div>
-
+                        <div class="card h-100 product-card">
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <!-- Product image-->
                             <img class="card-img-top" src="{{ product.image.url }}" alt="..." />
                             <!-- Product details-->
@@ -37,7 +32,6 @@
                                         &nbsp;&nbsp;Sale!&nbsp;&nbsp;
                                         <div class="bi-star-fill"></div>
                                     </div>
-
                                     <!-- Product price-->
                                     <strike>
                                     ${{ product.price }}
@@ -53,7 +47,7 @@
                     </div>
                     {% else %}
                     <div class="col mb-5">
-                        <div class="card h-100">
+                        <div class="card h-100 product-card">
                             <!-- Product image-->
                             <img class="card-img-top" src="{{ product.image.url }}" alt="..." />
                             <!-- Product details-->
@@ -73,9 +67,27 @@
                     </div>
                     {% endif %}
                     {% endfor %}
-
                 </div>
             </div>
         </section>
+
+<style>
+.product-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+}
+
+.card-img-top {
+    transition: transform 0.2s ease-in-out;
+}
+
+.product-card:hover .card-img-top {
+    transform: scale(1.02);
+}
+</style>
         
 {% endblock %}
